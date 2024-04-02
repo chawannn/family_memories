@@ -2,7 +2,7 @@
 ​
 ## サイト概要
 ### サイトテーマ
-家族間情報共有アプリ
+家族間情報共有コミュニティサイト
 ​
 ### テーマを選んだ理由
 子供が産まれてから、家族間画像・動画共有アプリを使用して家族で成長を実感しながら過ごしてきましたが、
@@ -26,6 +26,7 @@
 ​
 ## 設計書
 後ほど作成予定
+- 実装機能リストのURL:https://docs.google.com/spreadsheets/d/1MJcBw_BhLWu7dG4yn17lTelPfqeW9bomK7sL4eSWAh0/edit?usp=sharing
 ​
 ## 開発環境
 - OS：Linux(CentOS)
@@ -35,7 +36,4 @@
 - IDE：Cloud9
 ​
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
-- アプリケーションの実装に使用したgem/bootstrapのリファレンスなどの記載は不要です。
-- 使用しない場合は、使用素材の項目をREADMEから削除してください。
-- 実装機能リストのURL:https://docs.google.com/spreadsheets/d/1MJcBw_BhLWu7dG4yn17lTelPfqeW9bomK7sL4eSWAh0/edit?usp=sharing
+- 使用検討中です。
