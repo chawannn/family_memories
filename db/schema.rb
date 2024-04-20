@@ -46,11 +46,13 @@ ActiveRecord::Schema.define(version: 2024_04_18_125841) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "last_name"
-    t.string "first_name"
-    t.string "last_name_kana"
-    t.string "first_name_kana"
+    t.string "name"
+    t.string "name_hiragana"
     t.string "image"
+    t.date "birthday"
+    t.string "nickname"
+    t.integer "blood_type", default: 0, null: false
+    t.string "letter_color"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_members_on_email", unique: true
