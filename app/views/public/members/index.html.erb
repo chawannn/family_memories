@@ -2,11 +2,12 @@
 
   <% @members.each do |member| %>
 
+  <h3>写真</h3>
+  <span><%= member.image %></span>
 
-
-  <p>名前</p>
+  <h3>名前</h3>
   <span><%= member.name %></span>
 
-
+  <%= link_to"詳細ページへ", member_path(@member.id) %>
 
 <% end %>
