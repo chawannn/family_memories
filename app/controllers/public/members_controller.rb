@@ -1,7 +1,7 @@
 class Public::MembersController < ApplicationController
 
   def index
-    @members = Members.all
+    @members = current_member.families
   end
 
   def show
@@ -13,15 +13,15 @@ class Public::MembersController < ApplicationController
   end
 
   def update
-    member = Member.find(params[:id])
-    member.update(member_params)
-    redirect_to member_path(member.id)
+    @member = Member.find(params[:id])
+    @member.update(member_params)
+    redirect_to member_path(@member)
   end
 
 
   private
 
-    def member_params
-      params.require(:member).permit(:name,:name_hiragana,:image,:birthday,:nickname,:blood_type,:letter_color)  end
-
+  def member_params
+    params.require(:member).permit(:name,:name_hiragana,:image,:birthday,:nickname,:blood_type,:letter_color)
+  end
 end

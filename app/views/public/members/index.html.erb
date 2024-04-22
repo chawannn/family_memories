@@ -3,11 +3,13 @@
   <% @members.each do |member| %>
 
   <h3>写真</h3>
-  <span><%= member.image %></span>
+  <span><%= image_tag member.get_image(100, 100) %></span>
 
   <h3>名前</h3>
   <span><%= member.name %></span>
 
-  <%= link_to"詳細ページへ", member_path(@member.id) %>
+  <%= link_to"詳細ページへ", member_path(member.id) %>
 
 <% end %>
+
+<%= link_to "招待メールを送る", new_member_invitation_path if current_member.main_user? %>

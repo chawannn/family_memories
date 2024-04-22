@@ -1,6 +1,6 @@
 <h2>Log in</h2>
 
-  <%= form_with model: @user, url: user_session_path do |f| %>
+  <%= form_with model: @member, url: member_session_path(@member) do |f| %>
 
   <div class="field">
     <%= f.label :email %><br />

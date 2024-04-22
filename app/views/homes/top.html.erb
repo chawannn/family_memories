@@ -1,4 +1,14 @@
 <h1>family_memories</h1>
 <h2>topページ</h2>
 
-<%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post %>
+
+<% if member_signed_in? %>
+  <% if current_member.name.present? %>
+    <%= link_to 'メンバー一覧', members_path %>
+  <% else %>
+    <h3>最初に情報を入力してください</h3>
+    <%= link_to "情報を入力", edit_member_path(current_member) %>
+  <% end %>
+<% else %>
+  <%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post %>
+<% end %>
