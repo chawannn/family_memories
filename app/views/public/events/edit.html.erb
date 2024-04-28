@@ -1,2 +1,14 @@
-<h1>Events#edit</h1>
-<p>Find me in app/views/events/edit.html.erb</p>
+<h2>イベント編集</h2>
+
+  <%= form_with model: @event, url: event_path(@event.id) do |f| %>
+
+    <h3>イベント写真</h3>
+      <%= f.file_field :image, accept: "image/*" %>
+    <h3>イベント名</h3>
+      <%= f.text_field :title %>
+    <h3>イベント内容</h3>
+      <%= f.text_field :body %>
+
+    <%= f.submit '情報更新' %>
+
+  <% end %>
