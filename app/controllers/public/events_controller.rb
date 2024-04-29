@@ -1,18 +1,24 @@
 class Public::EventsController < ApplicationController
-
+  before_action :authenticate_member!
+  
   def new
-    @event = Event.new
+    @event = Event.new(start_time: params[:start_time])
   end
 
   def create
-    @event = Event.new(event_params)
-    @event.user_id = current_user.id
-    @event.save
-    redirect_to events_path
+    @event = current_member.events.build(event_params)
+    if @event.save
+      flash[:notice] = "登録しました"
+      redirect_to events_path
+    else
+      flash.now[:alert] = "登録に失敗しました"
+      render :new
+    end
   end
 
   def index
-    @event = event.all
+    families_ids = current_member.families.ids
+    @events = Event.where(member_id: families_ids)
   end
 
   def show
@@ -32,7 +38,7 @@ class Public::EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :body, :start_tome, :end_time)
+    params.require(:event).permit(:title, :body, :start_time, :end_time)
   end
 
 end

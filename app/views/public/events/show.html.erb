@@ -1,7 +1,8 @@
 <h2>イベント詳細<h2>
-
   <div>
-      <%= image_tag @event.get_image %>
+      <%= image_tag @event.get_image if @event.image.attached? %>
       <p>イベント:<%= @event.body %></p>
   </div>
+  
+  <%= link_to "calendar", events_path %>
 

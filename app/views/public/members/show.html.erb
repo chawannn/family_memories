@@ -2,14 +2,14 @@
 <h1>メンバー詳細</h1>
 
   <div>
-    <%= image_tag @member.get_image %>
+   
     <p>名前:<%= @member.name %></p>
     <p>なまえ:<%= @member.name_hiragana %></p>
-    <p>写真:<%= image_tag 'no-image.jpg' %></p>
+    <p>写真:<%= image_tag @member.get_image(100, 100) %></p>
     <p>生年月日:<%= @member.birthday %></p>
     <p>ニックネーム:<%= @member.nickname %></p>
     <p>血液型:<%= @member.blood_type %></p>
-    <p>担当カラー:<%= @member.letter_color %></p>
+    <p>担当カラー:<div class="btn btn-secondary" style="background-color:<%= @member.letter_color %>;">　</div></p>
   </div>
 
   <%= link_to"編集ページへ", edit_member_path(@member.id) %>

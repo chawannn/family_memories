@@ -1,3 +1,11 @@
 <p>イベント一覧</p>
 
-  
+<%= month_calendar events: @events do |date, events| %>
+  <%= link_to date.day, new_event_path(start_time: date) %>
+  <ul>
+    <% events.each do |event| %>
+      <li><%= link_to event.title, event_path(event), class: "badge badge-secondary", style: "background-color:#{event.member.letter_color};" %></li>
+    <% end %>
+  </ul>
+<% end %>
+

@@ -45,8 +45,10 @@ ActiveRecord::Schema.define(version: 2024_04_27_150935) do
     t.text "body"
     t.datetime "start_time"
     t.datetime "end_time"
+    t.integer "member_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["member_id"], name: "index_events_on_member_id"
   end
 
   create_table "members", force: :cascade do |t|
@@ -81,4 +83,5 @@ ActiveRecord::Schema.define(version: 2024_04_27_150935) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "events", "members"
 end
