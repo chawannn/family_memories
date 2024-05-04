@@ -1,8 +1,12 @@
 <h2>イベント詳細<h2>
   <div>
       <%= image_tag @event.get_image if @event.image.attached? %>
-      <p>イベント:<%= @event.body %></p>
+      <h4>イベント本文:<%= @event.body %></h4>
   </div>
-  
-  <%= link_to "calendar", events_path %>
 
+
+
+
+  <%= link_to "イベント編集へ", edit_event_path(@event.id) %>
+   |
+  <%= link_to "カレンダー一覧へ", events_path %>

@@ -1,3 +1,50 @@
+<div class="row mt-4">
+  <div class="col-md-6 offset-md-3 col-sm-8 offset-sm-2">
+    <h1 class="d-flex justify-content-center">メンバー情報編集</h1>
+
+    <div class="card card-form">
+      <div class="card-body">
+        <%= form_with model: @member do |f| %>
+          <%= render 'layouts/error_messages', model: f.object %>
+
+          <div class="form-group">
+            <%= f.label :name, "名前" %>
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :name_hiragana, "なまえ" %>
+            <%= f.text_field :name_hiragana, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :image, "写真" %>
+            <%= f.file_field :image, accept: "image/*", class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :birtday, "生年月日" %>
+            <%= f.text_field :birthday, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :body, "イベント内容" %>
+            <%= f.text_area :body, rows: 5, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.submit '情報更新', class: "btn btn-primary btn-block" %>
+          </div>
+          
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= link_to "戻る", events_path %>
+
+
 <h2>メンバー情報編集</h2>
 
         <%= form_with model: @member, url: member_path(@member.id) do |f| %>
@@ -28,3 +75,5 @@
 
 
         <% end %>
+        
+        
