@@ -1,10 +1,10 @@
 <h1>family_memories</h1>
-<h2>topページ</h2>
+<i class="fa-solid fa-book-user"></i>
 
 
 <% if member_signed_in? %>
   <% if current_member.name.present? %>
-    <%= link_to 'メンバー一覧', members_path %>
+    <%= link_to 'カレンダー', members_path %>
   <% else %>
     <h3>最初に情報を入力してください</h3>
     <%= link_to "情報を入力", edit_member_path(current_member) %>

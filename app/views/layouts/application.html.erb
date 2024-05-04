@@ -27,7 +27,7 @@
                   <% if member_signed_in? %>
 
                     <%= link_to new_event_path, class:"nav-link text-light" do %>
-                      <h8>新規投稿</h8>
+                      <h8>新規イベント投稿</h8>
                     <% end %>
 
                     <%= link_to members_path, class:"nav-link text-light" do %>
@@ -43,17 +43,13 @@
                     <% end %>
 
                     <%= link_to destroy_member_session_path, method: :delete, class:"nav-link text-light" do %>
-                      <h8> Log out</h8>
+                      <h8>ログアウト</h8>
                     <% end %>
 
                   <% else %>
 
-                    <%= link_to root_path, class:"nav-link text-light" do %>
-                      <h8> Home</h8>
-                    <% end %>
-
                     <%= link_to new_member_registration_path, class:"nav-link text-light" do %>
-                      <h8>新規登録</h8>
+                      <h8>新規メンバー登録</h8>
                     <% end %>
 
                     <%= link_to new_member_session_path, class:"nav-link text-light" do %>

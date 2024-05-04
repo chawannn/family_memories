@@ -5,7 +5,9 @@ class Member < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_one_attached :image
+
   has_many :events, dependent: :destroy
+  belongs_to :event_member
 
   def main_user?
     !self.invited_by_id.present?

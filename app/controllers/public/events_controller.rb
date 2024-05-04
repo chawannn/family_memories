@@ -1,6 +1,6 @@
 class Public::EventsController < ApplicationController
   before_action :authenticate_member!
-  
+
   def new
     @event = Event.new(start_time: params[:start_time])
   end
@@ -31,8 +31,19 @@ class Public::EventsController < ApplicationController
 
   def update
     @event = Event.find(params[:id])
-    @event.update(event_params)
-    redirect_to event_path(@event)
+    if @event.update(event_params)
+      flash[:notice] = "更新しました"
+      redirect_to event_path(@event)
+    else
+      flash.now[:alert] = "更新に失敗しました"
+      redirect_to edit_event_path
+    end
+  end
+
+  def destroy
+    event = Event.find(params[:id])
+    event.destroy
+    redirect_to events_path
   end
 
   private

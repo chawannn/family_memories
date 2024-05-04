@@ -28,14 +28,24 @@
           </div>
 
           <div class="form-group">
-            <%= f.label :body, "イベント内容" %>
-            <%= f.text_area :body, rows: 5, class: "form-control" %>
+            <%= f.label :nickname, "ニックネーム" %>
+            <%= f.text_field :nickname, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :blood_type, "血液型" %>
+            <%= f.text_field :blood_type, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :letter_color, "担当カラー" %>
+            <%= f.color_field :letter_color, class: "form-control" %>
           </div>
 
           <div class="form-group">
             <%= f.submit '情報更新', class: "btn btn-primary btn-block" %>
           </div>
-          
+
         <% end %>
       </div>
     </div>
@@ -44,36 +54,3 @@
 
 <%= link_to "戻る", events_path %>
 
-
-<h2>メンバー情報編集</h2>
-
-        <%= form_with model: @member, url: member_path(@member.id) do |f| %>
-
-            <h3>名前</h3>
-            <%= f.text_field :name %>
-
-             <h3>なまえ</h3>
-            <%= f.text_field :name_hiragana %>
-
-            <h3>写真</h3>
-            <%= f.file_field :image, accept: "image/*" %>
-
-            <h3>生年月日</h3>
-            <%= f.text_field :birthday %>
-
-            <h3>ニックネーム</h3>
-            <%= f.text_field :nickname %>
-
-            <h3>血液型</h3>
-            <%= f.text_field :blood_type %>
-
-            <h3>担当カラー</h3>
-            <%= f.color_field :letter_color %>
-
-
-            <%= f.submit '情報更新' %>
-
-
-        <% end %>
-        
-        
