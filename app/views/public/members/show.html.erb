@@ -1,68 +1,44 @@
-<div class="container">
+<div class="row">
+  <div class="col-md-3">
+    <%= image_tag @member.get_image(100, 100) %>
+    <%= link_to"メンバー情報編集へ", edit_member_path(@member.id) %>
+  </div>
 
-  <div class="row">
-    <div class="col-md-3">
-      <%= image_tag @member.get_image(100,100) %>
-    </div>
-    <div class="col-md-8 offset-md-1">
-
+  <div class="col-md-9">
+    <h2>メンバー詳細</h2>
     <table class="table table-hover table-inverse">
-      <h2>メンバー詳細</h2>
-      <thead>
+      <tbody>
         <tr>
           <th>名前</th>
-          <th>なまえ</th>
-          <th>写真</th>
-          <th>生年月日</th>
-          <th>ニックネーム</th>
-          <th>血液型</th>
-          <th>担当カラー</th>
-          <th colspan="3"></th>
+          <td><%= @member.name %></td>
         </tr>
-      </thead>
-
-      <tbody>
-        <% @members.each do |member| %>
         <tr>
-          <td><%= link_to member_path(member.id) do %>
-              <%= image_tag member.get_profile_image(100, 100) %>
-              <% end %>
-          </td>
-          <td><%= member.name %></td>
-          <td><%= member.name_hiragana %></td>
-          <td><%= image_tag member.get_image(100, 100) %></td>
-          <td><%= member.birthday %></td>
-          <td><%= member.nickname %></td>
-          <td><%= member.blood_type %></td>
-          <td><div class="btn btn-secondary" style="background-color:<%= member.letter_color %>;"></div></td>
-
-          <td><%= link_to "編集", edit_member_path(member.id) %></td>
-           |
-          <td><%= link_to "削除", member_path(member.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+          <th>なまえ</th>
+          <td><%= @member.name_hiragana %></td>
         </tr>
-        <% end %>
-      </tbody>
+        <tr>
+          <th>写真</th>
+          <td><%= image_tag @member.get_image(100, 100) %></td>
+        </tr>
+        <tr>
+          <th>生年月日</th>
+          <td><%= @member.birthday %></td>
+        </tr>
+        <tr>
+          <th>ニックネーム</th>
+          <td><%= @member.nickname %></td>
+        </tr>
+        <tr>
+          <th>血液型</th>
+          <td><%= @member.blood_type %></td>
+        </tr>
+        <tr>
+          <th>担当カラー</th>
+          <td><div class="btn btn-secondary" style="background-color:<%= @member.letter_color %>;"></div></td>
+        </tr>
+      </body>
     </table>
-    </div>
   </div>
 </div>
 
- <%= link_to"メンバー情報編集へ", edit_member_path(@member.id) %>
 
-
-
-
-<h1>メンバー詳細</h1>
-
-  <div>
-
-    <p>名前:<%= @member.name %></p>
-    <p>なまえ:<%= @member.name_hiragana %></p>
-    <p>写真:<%= image_tag @member.get_image(100, 100) %></p>
-    <p>生年月日:<%= @member.birthday %></p>
-    <p>ニックネーム:<%= @member.nickname %></p>
-    <p>血液型:<%= @member.blood_type %></p>
-    <p>担当カラー:<div class="btn btn-secondary" style="background-color:<%= @member.letter_color %>;"></div></p>
-  </div>
-
-  <%= link_to"メンバー情報編集へ", edit_member_path(@member.id) %>

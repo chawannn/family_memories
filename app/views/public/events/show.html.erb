@@ -1,62 +1,50 @@
-<div class="container">
+<div class="row">
+  <div class="col-md-3">
 
-  <div class="row">
-    <div class="col-md-3">
-      <%= image_tag @event.get_image if @event.image.attached? %>
-    </div>
-    <div class="col-md-8 offset-md-1">
-
+  </div>
+  <div class="col-md-8 offset-md-1">
+    <h2>イベント詳細</h2>
     <table class="table table-hover table-inverse">
-      <h2>イベント詳細</h2>
-      <thead>
+      <tbody>
+        <tr>
+          <th></th>
+          <td>
+            <%= link_to event_path(@event.id) do %>
+              <%= image_tag @event.get_image(100, 100) %>
+            <% end %>
+          </td>
+        </tr>
         <tr>
           <th>タイトル</th>
-          <th>本文</th>
-          <th colspan="3"></th>
+          <td><%= link_to @event.title, event_path(@event.id) %></td>
         </tr>
-      </thead>
-
-      <tbody>
-        <% @events.each do |event| %>
         <tr>
-          <td><%= link_to event_path(event.id) do %>
-                <%= image_tag @event.get_image if @event.image.attached? %>
-              <% end %></td>
-          <td><%= link_to event.title, event_path(event.id) %></td>
-          <td><%= event.body %></td>
-          <td><%= link_to "編集", edit_event_path(event.id) %></td>
-           |
-          <td><%= link_to "削除", event_path(event.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+          <th>本文</th>
+          <td><%= @event.body %></td>
         </tr>
-        <% end %>
+        <tr>
+          <th></th>
+          <td>
+            <%= link_to "編集", edit_event_path(@event.id) %> |
+            <%= link_to "削除", event_path(@event.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+          </td>
+        </tr>
+        <tr>
+          <th>assign_members</th>
+          <td>
+            <% @event.assign_members.each do |member| %>
+              <%= link_to member.name, member_path(member) %> 
+            <% end %>
+          </td>
+        </tr>
       </tbody>
     </table>
-    </div>
   </div>
 </div>
 
-  <%= link_to "イベント編集へ", edit_event_path(@event.id) %>
-   |
-  <%= link_to "カレンダー一覧へ", events_path %>
-
-  <%= form_with model: @member do |f| %>
-    <%= f.collection_check_boxes :member_ids, Member.all, :id, :name_with_initial %>
+  <%= form_with model: @event do |f| %>
+    <%= f.collection_check_boxes :assign_member_ids, current_member.families, :id, :name %>
     <%= f.submit %>
   <% end %>
 
-
-
-
-
-<h2>イベント詳細<h2>
-  <div>
-      <%= image_tag @event.get_image if @event.image.attached? %>
-      <h4>イベント本文:<%= @event.body %></h4>
-      <%= link_to "編集", edit_event_path(@event.id) %>
-       |
-      <%= link_to "削除", event_path(@event.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-  </div>
-
-  <%= link_to "イベント編集へ", edit_event_path(@event.id) %>
-   |
   <%= link_to "カレンダー一覧へ", events_path %>

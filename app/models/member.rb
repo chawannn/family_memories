@@ -4,10 +4,14 @@ class Member < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  enum blood_type: { other: 0, a: 1, b: 2, o: 3, ab: 4 }
+
   has_one_attached :image
 
   has_many :events, dependent: :destroy
-  belongs_to :event_member
+  #belongs_to :event_member
+  has_many :event_members, dependent: :destroy
+  has_many :assigh_events, through: :event_members, source: :event
 
   def main_user?
     !self.invited_by_id.present?

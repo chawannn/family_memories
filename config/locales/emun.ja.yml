@@ -1,0 +1,9 @@
+ja:
+  enums:
+    member:
+      blood_type:
+        other: 不明
+        a: A型
+        b: B型
+        o: O型
+        ab: AB型
