@@ -1,6 +1,5 @@
 @use '~bootstrap/scss/bootstrap';
 
-
 //simple_calendar start
 
 .simple-calendar {
@@ -97,3 +96,14 @@
 }
 
 //form end
+
+//nav-bar start
+.header {
+  .bg-dark {
+    background-color: #00CC99!important;
+  }
+  .navbar-dark {
+    color: #000000!important;
+  }
+}
+//nav-bar end

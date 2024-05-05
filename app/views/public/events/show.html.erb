@@ -33,7 +33,7 @@
           <th>assign_members</th>
           <td>
             <% @event.assign_members.each do |member| %>
-              <%= link_to member.name, member_path(member) %> 
+              <%= link_to member.name, member_path(member) %>
             <% end %>
           </td>
         </tr>
@@ -47,4 +47,4 @@
     <%= f.submit %>
   <% end %>
 
-  <%= link_to "カレンダー一覧へ", events_path %>
+  <%= link_to "戻る", events_path %>

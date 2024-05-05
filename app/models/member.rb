@@ -11,7 +11,7 @@ class Member < ApplicationRecord
   has_many :events, dependent: :destroy
   #belongs_to :event_member
   has_many :event_members, dependent: :destroy
-  has_many :assigh_events, through: :event_members, source: :event
+  has_many :assign_events, through: :event_members, source: :event
 
   def main_user?
     !self.invited_by_id.present?

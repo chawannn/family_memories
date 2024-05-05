@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-md-3">
-    <%= image_tag current_member.get_image(100, 100) %>
+    <%= image_tag current_member.get_image(100, 100) %></br>
     <%= link_to"メンバー情報編集へ", edit_member_path(current_member.id) %>
   </div>
-  
+
   <div class="col-md-9">
     <h2>メンバー一覧</h2>
     <table class="table table-hover table-inverse">
@@ -23,11 +23,6 @@
       <tbody>
         <% @members.each do |member| %>
         <tr>
-          <!--<td>
-            <%#= link_to member_path(member.id) do %>
-              <%#= image_tag member.get_image(100, 100) %>
-            <%# end %>
-          </td>-->
           <td><%= member.name %></td>
           <td><%= member.name_hiragana %></td>
           <td><%= image_tag member.get_image(100, 100) %></td>
@@ -38,10 +33,10 @@
 
           <td>
             <%= link_to "詳細", member_path(member) %>
-            <% if current_member.main_user? || current_member == member %> | 
+            <% if current_member.main_user? || current_member == member %> |
               <%= link_to "編集", edit_member_path(member.id) %>
             <% end %>
-            <% if current_member.main_user? %> | 
+            <% if current_member.main_user? %> |
               <%= link_to "削除", member_path(member.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
             <% end %>
           </td>
@@ -54,3 +49,4 @@
 
 
 <%= link_to "招待メールを送る", new_member_invitation_path if current_member.main_user? %>
+<%= link_to "戻る", events_path %>

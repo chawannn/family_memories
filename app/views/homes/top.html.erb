@@ -1,10 +1,16 @@
-<h1>family_memories</h1>
-<i class="fa-solid fa-book-user"></i>
-
+<div class="row">
+    <h1 class="px-3 mx-auto">
+      family_memories!</br>
+        <%= link_to events_path, style: "text-decoration:none;color:#b0e0e6" do %>
+          <i class="fa-regular fa-address-book fa-8x"></i></br>
+          カレンダーへGo!!
+        <% end %>
+    </h1>
+</div>
 
 <% if member_signed_in? %>
   <% if current_member.name.present? %>
-    <%= link_to 'カレンダー', members_path %>
+    <%= link_to 'カレンダー', events_path %>
   <% else %>
     <h3>最初に情報を入力してください</h3>
     <%= link_to "情報を入力", edit_member_path(current_member) %>
