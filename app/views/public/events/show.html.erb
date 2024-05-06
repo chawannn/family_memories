@@ -37,6 +37,21 @@
             <% end %>
           </td>
         </tr>
+        <tr>
+          <% if @event.is_nices=(current_member) %>
+            <p>
+              <%= link_to event_is_nice_path(@event), method: :delete do %>
+                ♥<%= @event.is_nice.count %> いいね
+              <% end %>
+            </p>
+          <% else %>
+            <p>
+              <%= link_to event_is_nice_path(@event), method: :post do %>
+                ♡<%= @event.is_nice.count %> いいね
+              <% end %>
+            </p>
+          <% end %>
+        </tr>
       </tbody>
     </table>
   </div>

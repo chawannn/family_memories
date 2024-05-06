@@ -9,9 +9,9 @@ class Member < ApplicationRecord
   has_one_attached :image
 
   has_many :events, dependent: :destroy
-  #belongs_to :event_member
   has_many :event_members, dependent: :destroy
   has_many :assign_events, through: :event_members, source: :event
+  has_many :is_nices, dependent: :destroy
 
   def main_user?
     !self.invited_by_id.present?

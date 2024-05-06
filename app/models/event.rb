@@ -3,12 +3,16 @@ class Event < ApplicationRecord
   has_one_attached :image
 
   belongs_to :member
-  #belongs_to :event_member
   has_many :event_members, dependent: :destroy
   has_many :assign_members, through: :event_members, source: :member
+  has_many :is_nices, dependent: :destroy
 
   validates :title, presence: true
-  
+
+  def is_niced_by?(member)
+    is_nices.exists?(member_id: member.id)
+  end
+
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')

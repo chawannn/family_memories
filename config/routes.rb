@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   root to: "homes#top"
   scope module: :public do
     resources :members, only: [:index, :show, :edit, :update, :destroy]
-    resources :events, only: [:new, :index, :show, :edit, :create, :update, :destroy]
+    resources :events, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
+      resource :is_nice, only: [:create, :destroy]
+    end
   end
 
   devise_scope :member do
