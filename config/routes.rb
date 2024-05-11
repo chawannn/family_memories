@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       resource :is_nice, only: [:create, :destroy]
       resources :comments, only: [:create]
     end
+    resources :comments, only: [:destroy]
   end
 
   devise_scope :member do

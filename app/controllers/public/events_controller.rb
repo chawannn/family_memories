@@ -50,7 +50,7 @@ class Public::EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:title, :body, :start_time, :end_time, assign_member_ids: [])
+    params.require(:event).permit(:title, :body, :start_time, :end_time, assign_member_ids: [], images: [])
   end
 
 end

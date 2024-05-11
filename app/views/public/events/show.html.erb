@@ -1,17 +1,32 @@
+<h2 class="mt-4">イベント詳細</h2>
 <div class="row">
-  <div class="col-md-3">
-
-  </div>
-  <div class="col-md-8 offset-md-1">
-    <h2>イベント詳細</h2>
+  <div class="col-md-6">
+    <% if @event.is_niced_by?(current_member) %>
+      <p>
+        <%= link_to event_is_nice_path(@event), method: :delete do %>
+          ♥<%= @event.is_nices.count %> いいね
+        <% end %>
+      </p>
+    <% else %>
+      <p>
+        <%= link_to event_is_nice_path(@event), method: :post do %>
+          ♡<%= @event.is_nices.count %> いいね
+        <% end %>
+      </p>
+    <% end %>
     <table class="table table-hover table-inverse">
       <tbody>
         <tr>
-          <th></th>
-          <td>
-            <%= link_to event_path(@event.id) do %>
-              <%= image_tag @event.get_image(100, 100) %>
-            <% end %>
+          <td colspan=2>
+            <div class="d-flex justify-content-center">
+              <% if @event.images.attached? %>
+                <% @event.images.each do |image| %>
+                  <%= image_tag image.variant(resize_to_limit: [100, 100]), class: "mx-2" %>
+                <% end %>
+              <% else %>
+                <% image_tag 'no-image.ipg', style: "wisdth:100px;" %>
+              <% end %>
+            </div>
           </td>
         </tr>
         <tr>
@@ -30,7 +45,7 @@
           </td>
         </tr>
         <tr>
-          <th>assign_members</th>
+          <th>関連付けられた人</th>
           <td>
             <% @event.assign_members.each do |member| %>
               <%= link_to member.name, member_path(member) %>
@@ -38,44 +53,54 @@
           </td>
         </tr>
         <tr>
-          <% if @event.is_niced_by?(current_member) %>
-            <p>
-              <%= link_to event_is_nice_path(@event), method: :delete do %>
-                ♥<%= @event.is_nices.count %> いいね
-              <% end %>
-            </p>
-          <% else %>
-            <p>
-              <%= link_to event_is_nice_path(@event), method: :post do %>
-                ♡<%= @event.is_nices.count %> いいね
-              <% end %>
-            </p>
-          <% end %>
-        </tr>
-        <tr>
-          <div>
-            <p>コメント件数：<%= @event.comments.count %></p>
-              <% @event.comments.each do |comment| %>
-                <p><%= image_tag comment.member.get_profile_image(100,100) %></p>
-                <%= comment.member.name %>
-                <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-              <% end %>
-          </div>
-          <div>
-            <%= form_with model: [@event, @comment] do |f| %>
-              <%= f.text_area :comment, rows: '3', placeholder: "コメントをここに" %>
-              <%= f.submit "送る" %>
+          <th>関連づける人にチェックをつける</th>
+          <td>
+            <%= form_with model: @event do |f| %>
+              <div class="mb-2">
+                <%= f.collection_check_boxes :assign_member_ids, current_member.families, :id, :name %>
+              </div>
+              <div class="mb-2">
+                <%= f.submit "追加する", class: "btn btn-primary" %>
+              </div>
             <% end %>
-          </div>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <div class="col-md-6">
+    <div class="mb-4">
+      <p>コメント件数：<%= @event.comments.count %></p>
+      <% @event.comments.each do |comment| %>
+        <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-start align-items-center">
+            <span class="mr-2"><%= image_tag comment.member.get_image(50,50) %></span>
+            <span><%= comment.member.name %></span>
+          </div>
+          <div class="d-flex justify-content-start align-items-center">
+            <span><%= comment.body %></span>
+          </div>
+
+          <div class="d-flex justify-content-end align-items-center ">
+            <span class="mr-2"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
+            <span><%= link_to "削除", comment_path(comment), method: :delete, class: "btn btn-sm btn-danger" if current_member == comment.member %></span>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="mb-4">
+      <%= form_with model: [@event, @comment] do |f| %>
+        <div class="mb-2">
+          <%= f.text_area :body, rows: '3', placeholder: "コメントをここに", class: "form-control" %>
+        </div>
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <%= f.submit "送る", class: "btn btn-primary btn-block" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-  <%= form_with model: @event do |f| %>
-    <%= f.collection_check_boxes :assign_member_ids, current_member.families, :id, :name %>
-    <%= f.submit %>
-  <% end %>
-
-  <%= link_to "戻る", events_path %>
+<%= link_to "戻る", events_path, class: "btn btn-secondary" %>
