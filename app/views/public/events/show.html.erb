@@ -1,16 +1,17 @@
-<h2 class="mt-4">イベント詳細</h2>
+<h2 class="mt-4 d-flex justify-content-center">＜イベント詳細＞</h2>
+
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-9">
     <% if @event.is_niced_by?(current_member) %>
       <p>
         <%= link_to event_is_nice_path(@event), method: :delete do %>
-          ♥<%= @event.is_nices.count %> いいね
+          ♥<%= @event.is_nices.count %> ありがとう!!
         <% end %>
       </p>
     <% else %>
       <p>
         <%= link_to event_is_nice_path(@event), method: :post do %>
-          ♡<%= @event.is_nices.count %> いいね
+          ♡<%= @event.is_nices.count %> ありがとう!!
         <% end %>
       </p>
     <% end %>
@@ -30,22 +31,22 @@
           </td>
         </tr>
         <tr>
-          <th>タイトル</th>
+          <th>イベントタイトル</th>
           <td><%= link_to @event.title, event_path(@event.id) %></td>
         </tr>
         <tr>
-          <th>本文</th>
+          <th>イベント内容</th>
           <td><%= @event.body %></td>
         </tr>
         <tr>
           <th></th>
           <td>
-            <%= link_to "編集", edit_event_path(@event.id) %> |
-            <%= link_to "削除", event_path(@event.id), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+            <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-warning" %> |
+            <%= link_to "削除", event_path(@event.id), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
           </td>
         </tr>
         <tr>
-          <th>関連付けられた人</th>
+          <th>お願いしたい人</th>
           <td>
             <% @event.assign_members.each do |member| %>
               <%= link_to member.name, member_path(member) %>
@@ -53,7 +54,7 @@
           </td>
         </tr>
         <tr>
-          <th>関連づける人にチェックをつける</th>
+          <th>お願いしたい人にチェックする</th>
           <td>
             <%= form_with model: @event do |f| %>
               <div class="mb-2">
@@ -68,7 +69,7 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-3">
     <div class="mb-4">
       <p>コメント件数：<%= @event.comments.count %></p>
       <% @event.comments.each do |comment| %>
@@ -103,4 +104,4 @@
   </div>
 </div>
 
-<%= link_to "戻る", events_path, class: "btn btn-secondary" %>
+<%= link_to "カレンダーへ", events_path, class: "btn btn-secondary" %>

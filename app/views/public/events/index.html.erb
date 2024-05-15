@@ -1,9 +1,8 @@
-<h1>カレンダー</h1>
+<h2 class="mt-4 d-flex justify-content-center">＜カレンダー＞</h2>
 
 <%= month_calendar events: @events do |date, events| %>
 
   <%= link_to date.day, new_event_path(start_time: date) %>
-
     <ul>
       <% events.each do |event| %>
         <li><%= link_to event.title, event_path(event), class: "badge badge-secondary", style: "background-color:#{event.member.letter_color};" %></li>
@@ -11,4 +10,6 @@
     </ul>
 
 <% end %>
+
+<%= link_to "メンバー一覧へ", members_path, class: "btn btn-secondary" %>
 
