@@ -6,10 +6,17 @@ Rails.application.routes.draw do
   scope module: :public do
     resources :members, only: [:index, :show, :edit, :update, :destroy]
     resources :events, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
-      resource :is_nice, only: [:create, :destroy]
       resources :comments, only: [:create]
     end
     resources :comments, only: [:destroy]
+    resources :event_members, only: [] do
+      member do
+        post :is_nice, to: 'event_members#is_nice_create'
+        delete :is_nice, to: 'event_members#is_nice_destroy'
+        post :is_done, to: 'event_members#is_done_create'
+        delete :is_done, to: 'event_members#is_done_destroy'
+      end
+    end
   end
 
   devise_scope :member do

@@ -2,30 +2,21 @@
 
 <div class="row">
   <div class="col-md-9">
-    <% if @event.is_niced_by?(current_member) %>
-      <p>
-        <%= link_to event_is_nice_path(@event), method: :delete do %>
-          ♥<%= @event.is_nices.count %> ありがとう!!
-        <% end %>
-      </p>
-    <% else %>
-      <p>
-        <%= link_to event_is_nice_path(@event), method: :post do %>
-          ♡<%= @event.is_nices.count %> ありがとう!!
-        <% end %>
-      </p>
-    <% end %>
     <table class="table table-hover table-inverse">
       <tbody>
         <tr>
           <td colspan=2>
             <div class="d-flex justify-content-center">
               <% if @event.images.attached? %>
-                <% @event.images.each do |image| %>
-                  <%= image_tag image.variant(resize_to_limit: [100, 100]), class: "mx-2" %>
-                <% end %>
+                <div class="row">
+                  <% @event.images.each do |image| %>
+                    <div class="col-6 col-sm-4">
+                      <%= image_tag image.variant(gravity: :center, resize: "200x200", crop: "120x120+0+0").processed, class: "my-2", style: "width:100%;" %>
+                    </div>
+                  <% end %>
+                </div>
               <% else %>
-                <% image_tag 'no-image.ipg', style: "wisdth:100px;" %>
+                <% image_tag 'no_image.jpg', style: "wisdth:100px;" %>
               <% end %>
             </div>
           </td>
@@ -48,9 +39,46 @@
         <tr>
           <th>お願いしたい人</th>
           <td>
-            <% @event.assign_members.each do |member| %>
-              <%= link_to member.name, member_path(member) %>
-            <% end %>
+            <div>
+              <% @event.event_members.each do |event_member| %>
+                <div class="d-flex justify-content-between">
+                  <span>
+                    <%= link_to (event_member.member.name ? event_member.member.name : event_member.member.id), member_path(event_member.member) %>
+                  </span>
+                  <span>
+                    doneボタン
+                    <% if event_member.is_done? %>
+                      <%= link_to_if (event_member.member == current_member), "できた", is_done_event_member_path(event_member), method: :delete %>
+                    <% else %>
+                      <%= link_to_if (event_member.member == current_member), "まだ", is_done_event_member_path(event_member), method: :post %>
+                    <% end %>
+                  </span>
+                  <span>
+                    ありがとうボタン
+                    <% if event_member.is_nice? %>
+                      <%= link_to_if (@event.member == current_member), "♥", is_nice_event_member_path(event_member), method: :delete %>
+                    <% else %>
+                      <%= link_to_if (@event.member == current_member), "♡", is_nice_event_member_path(event_member), method: :post %>
+                    <% end %>
+                    <!--
+                    <%# if @event.is_niced_by?(current_member) %>
+                      <p>
+                        <%#= link_to event_is_nice_path(@event), method: :delete do %>
+                          ♥<%#= @event.is_nices.count %> ありがとう!!
+                        <%# end %>
+                      </p>
+                    <%# else %>
+                      <p>
+                        <%#= link_to event_is_nice_path(@event), method: :post do %>
+                          ♡<%#= @event.is_nices.count %> ありがとう!!
+                        <%# end %>
+                      </p>
+                    <%# end %>
+                    -->
+                  </span>
+                </div>
+              <% end %>
+            </div>
           </td>
         </tr>
         <tr>
@@ -58,7 +86,9 @@
           <td>
             <%= form_with model: @event do |f| %>
               <div class="mb-2">
-                <%= f.collection_check_boxes :assign_member_ids, current_member.families, :id, :name %>
+                <%= f.collection_check_boxes :assign_member_ids, current_member.families, :id, :name do |b| %>
+                  <%= b.label { b.check_box + ( b.object.name ? b.ocject.name : b.object.id.to_s ) } %>
+                <% end %>
               </div>
               <div class="mb-2">
                 <%= f.submit "追加する", class: "btn btn-primary" %>

@@ -11,7 +11,6 @@ class Member < ApplicationRecord
   has_many :events, dependent: :destroy
   has_many :event_members, dependent: :destroy
   has_many :assign_events, through: :event_members, source: :event
-  has_many :is_nices, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   def main_user?

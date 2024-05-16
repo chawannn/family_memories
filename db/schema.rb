@@ -52,6 +52,8 @@ ActiveRecord::Schema.define(version: 2024_05_07_132713) do
   create_table "event_members", force: :cascade do |t|
     t.integer "event_id", null: false
     t.integer "member_id", null: false
+    t.boolean "is_done", default: false, null: false
+    t.boolean "is_nice", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["event_id"], name: "index_event_members_on_event_id"
@@ -67,13 +69,6 @@ ActiveRecord::Schema.define(version: 2024_05_07_132713) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["member_id"], name: "index_events_on_member_id"
-  end
-
-  create_table "is_nices", force: :cascade do |t|
-    t.integer "member_id", null: false
-    t.integer "event_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "members", force: :cascade do |t|
