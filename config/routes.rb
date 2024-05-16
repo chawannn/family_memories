@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
 
-
   devise_for :members
   root to: "homes#top"
+  
   scope module: :public do
     resources :members, only: [:index, :show, :edit, :update, :destroy]
     resources :events, only: [:new, :index, :show, :edit, :create, :update, :destroy] do
       resources :comments, only: [:create]
+      resources :gallerys, only: [:index]
     end
     resources :comments, only: [:destroy]
     resources :event_members, only: [] do
