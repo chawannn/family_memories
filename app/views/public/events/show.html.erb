@@ -22,8 +22,12 @@
           </td>
         </tr>
         <tr>
+          <th>イベント投稿者</th>
+          <td><%=link_to @member.name, member_path(@member) %></td>
+        </tr>
+        <tr>
           <th>イベントタイトル</th>
-          <td><%= link_to @event.title, event_path(@event.id) %></td>
+          <td><%= @event.title %></td>
         </tr>
         <tr>
           <th>イベント内容</th>
@@ -87,7 +91,7 @@
             <%= form_with model: @event do |f| %>
               <div class="mb-2">
                 <%= f.collection_check_boxes :assign_member_ids, current_member.families, :id, :name do |b| %>
-                  <%= b.label { b.check_box + ( b.object.name ? b.ocject.name : b.object.id.to_s ) } %>
+                  <%= b.label { b.check_box + ( b.object.name ? b.object.name : b.object.id.to_s ) } %>
                 <% end %>
               </div>
               <div class="mb-2">
