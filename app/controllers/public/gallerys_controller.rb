@@ -1,6 +1,6 @@
 class Public::GallerysController < ApplicationController
 
   def index
-    @events = Event.all
+    @events = Event.where(member_id: current_member.families)
   end
 end
