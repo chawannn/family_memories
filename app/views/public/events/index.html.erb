@@ -1,5 +1,11 @@
 <h2 class="mt-4 d-flex justify-content-center">＜カレンダー＞</h2>
 
+<div class="d-flex">
+  <%= link_to "all", events_path, class: "btn btn-primary mr-2" %>
+  <%= link_to "done", events_path(status: :done), class: "btn btn-primary mr-2" %>
+  <%= link_to "not_yet", events_path(status: :not_yet), class: "btn btn-primary mr-2" %>
+</div>
+
 <%= month_calendar events: @events do |date, events| %>
 
   <%= link_to date.day, new_event_path(start_time: date) %>
@@ -12,4 +18,3 @@
 <% end %>
 
 <%= link_to "メンバー一覧へ", members_path, class: "btn btn-secondary" %>
-

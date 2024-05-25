@@ -18,13 +18,18 @@ class Public::EventsController < ApplicationController
 
   def index
     families_ids = current_member.families.ids
-    @events = Event.where(member_id: families_ids)
+    @events = Event.where(member_id: families_ids).includes(:event_members)
+    if params[:status].present?
+      done_ids = @events.map { |o| [ o[:id], o.event_members.pluck(:is_nice, :is_done).flatten.uniq ] }.select { |a| a.last.size == 1 && a.last.first }.map { |o| o.first }
+      not_yet_ids = @events.ids - done_ids
+      @events = @events.where(id: done_ids) if params[:status] == "done"
+      @events = @events.where(id: not_yet_ids) if params[:status] == "not_yet"
+    end
   end
 
   def show
     @event = Event.find(params[:id])
     @comment = Comment.new
-    @member = Member.find(params[:id])
   end
 
   def edit
