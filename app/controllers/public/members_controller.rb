@@ -13,11 +13,16 @@ class Public::MembersController < ApplicationController
   def edit
     @member = Member.find(params[:id])
   end
-
+  
   def update
     @member = Member.find(params[:id])
-    @member.update(member_params)
-    redirect_to member_path(@member)
+    if @member.update(member_params)
+      flash[:notice] = "更新しました"
+      redirect_to member_path(@member)
+    else
+      flash.now[:alert] = "更新に失敗しました"
+      redirect_to edit_member_path
+    end
   end
 
 

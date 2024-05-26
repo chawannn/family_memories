@@ -6,7 +6,7 @@
 
 
       <div class="col-3">
-        
+
         <%= link_to event_path (event.id) do %>
           <span><%= image_tag image.variant(gravity: :center, resize: "100x100^", crop: "100x100+0+0").processed, class: "my-2", style: "width:100%;" %></span>
         <% end %>
@@ -18,3 +18,5 @@
     <% end %>
   <% end %>
 </div>
+
+<%= link_to "戻る", :back, class: "btn btn-secondary" %>
