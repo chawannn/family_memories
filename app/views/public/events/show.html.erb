@@ -2,25 +2,21 @@
 
 <div class="row">
   <div class="col-md-9">
+    <% if @event.images.attached? %>
+      <%= link_to gallerys_path do %>
+        <div id="images">
+          <% @event.images.each do |image| %>
+            <div class="">
+              <%= image_tag image.variant(gravity: :center, resize: "200x200^", crop: "200x200+0+0").processed, class: "", style: "width:100%;" %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <% image_tag 'no_image.jpg', style: "wisdth:100px;" %>
+    <% end %>
     <table class="table table-hover table-inverse">
       <tbody>
-        <tr>
-          <td colspan=2>
-            <div class="d-flex justify-content-center">
-              <% if @event.images.attached? %>
-                <div class="row">
-                  <% @event.images.each do |image| %>
-                    <div class="col-6 col-sm-4">
-                      <%= image_tag image.variant(gravity: :center, resize: "200x200", crop: "120x120+0+0").processed, class: "my-2", style: "width:100%;" %>
-                    </div>
-                  <% end %>
-                </div>
-              <% else %>
-                <% image_tag 'no_image.jpg', style: "wisdth:100px;" %>
-              <% end %>
-            </div>
-          </td>
-        </tr>
         <tr>
           <th>イベント投稿者</th>
           <td><%=link_to @event.member.name, member_path(@event.member) %></td>
@@ -33,51 +29,56 @@
           <th>イベント内容</th>
           <td><%= @event.body %></td>
         </tr>
-        <tr>
-          <th></th>
-          <td>
-            <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-warning" %> |
-            <%= link_to "削除", event_path(@event.id), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
-          </td>
-        </tr>
+        <% if @event.member == current_member %>
+          <tr>
+            <th></th>
+            <td>
+              <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-warning" %> |
+              <%= link_to "削除", event_path(@event.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
+            </td>
+          </tr>
+        <% end %>
       </tbody>
     </table>
+    <hr>
+    <div style="height:100px;"></div>
     <table class="table table-hover table-inverse">
       <tr>
         <th>頼まれた人</th>
-          <td>
-            <div>
-              <% @event.event_members.each do |event_member| %>
-                <div class="d-flex justify-content-between">
-                  <span>
-                    <%= event_member.member.name ? event_member.member.name : event_member.member.id %>
-                  </span>
-                  <span>
-                    実施
-                    <% if event_member.is_done? %>
-                      <%= link_to_if (event_member.member == current_member), "済", is_done_event_member_path(event_member), method: :delete, class: "btn btn-secondary" %>
-                    <% else %>
-                      <%= link_to_if (event_member.member == current_member), "中", is_done_event_member_path(event_member), method: :post, class: "btn btn-warning" %>
-                    <% end %>
-                  </span>
-                  <span>
-                    <% if event_member.is_nice? %>
-                      <%= link_to_if (@event.member == current_member), "ありがとう", is_nice_event_member_path(event_member), method: :delete, class: "btn btn-secondary" %>
-                    <% else %>
-                      <%= link_to_if (@event.member == current_member), "待ってます", is_nice_event_member_path(event_member), method: :post, class: "btn btn-warning" %>
-                    <% end %>
-                  </span>
-                </div>
-              <% end %>
-            </div>
-          </td>
-        </tr>
+        <td>
+          <div>
+            <% @event.event_members.each do |event_member| %>
+              <div class="d-flex justify-content-between">
+                <span>
+                  <%= event_member.member.name ? event_member.member.name : event_member.member.id %>
+                </span>
+                <span>
+                  実施
+                  <% if event_member.is_done? %>
+                    <%= link_to_if (event_member.member == current_member), "済", is_done_event_member_path(event_member), method: :delete, class: "btn btn-secondary" %>
+                  <% else %>
+                    <%= link_to_if (event_member.member == current_member), "中", is_done_event_member_path(event_member), method: :post, class: "btn btn-warning" %>
+                  <% end %>
+                </span>
+                <span>
+                  <% if event_member.is_nice? %>
+                    <%= link_to_if (@event.member == current_member), "ありがとう", is_nice_event_member_path(event_member), method: :delete, class: "btn btn-secondary" %>
+                  <% else %>
+                    <%= link_to_if (@event.member == current_member), "待ってます", is_nice_event_member_path(event_member), method: :post, class: "btn btn-warning" %>
+                  <% end %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+      <% if @event.member == current_member %>
         <tr>
           <th>頼みたい人にチェック</th>
           <td>
             <%= form_with model: @event do |f| %>
               <div class="mb-2">
-                <%= f.collection_check_boxes :assign_member_ids, current_member.families, :id, :name do |b| %>
+                <%= f.collection_check_boxes :assign_member_ids, @event.member.families, :id, :name do |b| %>
                   <%= b.label { b.check_box + ( b.object.name ? b.object.name : b.object.id.to_s ) } %>
                 <% end %>
               </div>
@@ -87,6 +88,7 @@
             <% end %>
           </td>
         </tr>
+      <% end %>
     </table>
   </div>
   <div class="col-md-3">
@@ -125,3 +127,22 @@
 </div>
 
 <%= link_to "カレンダーへ", events_path, class: "btn btn-secondary" %>
+
+<script type="text/javascript">
+ $('#images').slick({
+  slidesToShow: 3,
+  slidesToScroll:1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+// 画像下のドット（ページ送り）を表示
+  dots:true,
+});
+</script>
+
+
+<style>
+#images img{
+margin:10px;/*画像の周りに余白*/
+width:95%;/*横幅に制限*/
+border:0.5px solid #eee;/*周囲に薄いボーダー*/}
+</style>

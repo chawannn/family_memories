@@ -1,5 +1,8 @@
 class Public::EventsController < ApplicationController
   before_action :authenticate_member!
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :correct_member, only: [:edit, :update, :destroy]
+  before_action :correct_family, only: [:show]
 
   def new
     @event = Event.new(start_time: params[:start_time])
@@ -21,23 +24,20 @@ class Public::EventsController < ApplicationController
     @events = Event.where(member_id: families_ids).includes(:event_members)
     if params[:status].present?
       done_ids = @events.map { |o| [ o[:id], o.event_members.pluck(:is_nice, :is_done).flatten.uniq ] }.select { |a| a.last.size == 1 && a.last.first }.map { |o| o.first }
-      not_yet_ids = @events.ids - done_ids
+      not_yet_ids = @events.joins(:event_members).where('event_members.member_id': current_member.id).ids - done_ids
       @events = @events.where(id: done_ids) if params[:status] == "done"
       @events = @events.where(id: not_yet_ids) if params[:status] == "not_yet"
     end
   end
 
   def show
-    @event = Event.find(params[:id])
     @comment = Comment.new
   end
 
   def edit
-    @event = Event.find(params[:id])
   end
 
   def update
-    @event = Event.find(params[:id])
     if @event.update(event_params)
       flash[:notice] = "更新しました"
       redirect_to event_path(@event)
@@ -48,7 +48,6 @@ class Public::EventsController < ApplicationController
   end
 
   def destroy
-    event = Event.find(params[:id])
     event.destroy
     redirect_to events_path
   end
@@ -58,5 +57,20 @@ class Public::EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:title, :body, :start_time, :end_time, assign_member_ids: [], images: [])
   end
-
+  
+  def set_event
+    @event = Event.find(params[:id])
+  end
+  
+  def correct_member
+    if @event.member != current_member
+      redirect_to root_path
+    end
+  end
+  
+  def correct_family
+    if !current_member.families.include?(@event.member)
+      redirect_to root_path
+    end
+  end
 end
