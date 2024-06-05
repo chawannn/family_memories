@@ -25,5 +25,6 @@ Rails.application.routes.draw do
   end
 
   #TODO: change settings before 2nd deploy
-  mount LetterOpenerWeb::Engine, at: "/letter_opener"# if Rails.env.development?
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  # if Rails.env.development?
 end
