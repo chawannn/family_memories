@@ -65,6 +65,8 @@ gem 'enum_help'
 gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
+  #TODO: delete gefore 2nd deploy
+  gem 'letter_opener_web'
 end
 
 gem "net-smtp"

@@ -24,5 +24,6 @@ Rails.application.routes.draw do
     post 'members/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  #TODO: change settings before 2nd deploy
+  mount LetterOpenerWeb::Engine, at: "/letter_opener"# if Rails.env.development?
 end
