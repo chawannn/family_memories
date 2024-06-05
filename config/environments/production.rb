@@ -65,7 +65,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   #TODO: change settings bofore 2nd deploy
   config.action_mailer.delivery_method = :letter_opener_web
-  #config.action_mailer.default_url_options = { host: 'https://ae82ce150530497e9904bbe0da292ce1.vfs.cloud9.ap-northeast-1.amazonaws.com/' }
+  config.action_mailer.default_url_options = { host: 'http://localhost:3000' }
 
 
   # Ignore bad email addresses and do not raise email delivery errors.
