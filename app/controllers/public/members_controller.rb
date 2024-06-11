@@ -7,13 +7,12 @@ class Public::MembersController < ApplicationController
   def show
     @member = Member.find(params[:id])
     @members = current_member.families
-    @event = Event.find(params[:id])
   end
 
   def edit
     @member = Member.find(params[:id])
   end
-  
+
   def update
     @member = Member.find(params[:id])
     if @member.update(member_params)

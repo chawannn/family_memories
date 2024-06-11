@@ -4,9 +4,15 @@ class Member < ApplicationRecord
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  enum blood_type: { other: 0, a: 1, b: 2, o: 3, ab: 4 }
+  enum blood_type: { other: 0, A: 1, B: 2, O: 3, AB: 4 }
 
   has_one_attached :image
+
+  validates :name, presence: true
+  validates :name_hiragana, presence: true
+  validates :birthday, presence: true
+  validates :nickname, presence: true
+  validates :blood_type, presence: true
 
   has_many :events, dependent: :destroy
   has_many :event_members, dependent: :destroy
@@ -40,6 +46,11 @@ class Member < ApplicationRecord
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |member|
       member.password = SecureRandom.urlsafe_base64
+      member.name = "ゲスト"
+      member.name_hiragana = "げすと"
+      member.birthday = "2000/12/01"
+      member.nickname = "gesuto"
+      member.blood_type = "1"
     end
   end
 

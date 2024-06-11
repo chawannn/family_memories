@@ -2,6 +2,9 @@ class Event < ApplicationRecord
 
   has_many_attached :images
 
+  validates :title, presence: true
+  validates :body, presence: true
+
   belongs_to :member
   has_many :event_members, dependent: :destroy
   has_many :assign_members, through: :event_members, source: :member
