@@ -44,14 +44,6 @@ class Member < ApplicationRecord
   end
 
   def self.guest
-    find_or_create_by!(email: 'guest@example.com') do |member|
-      member.password = SecureRandom.urlsafe_base64
-      member.name = "ゲスト"
-      member.name_hiragana = "げすと"
-      member.birthday = "2000/12/01"
-      member.nickname = "gesuto"
-      member.blood_type = "1"
-    end
+    find_by(email: 'yamada@test.com')
   end
-
 end

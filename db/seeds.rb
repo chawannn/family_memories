@@ -181,18 +181,110 @@ families = [
   ],
 ]
 
+puts "--> Family start"
+
 families.each do |members|
+  print "##-->> Member start"
   members.each.with_index do |member, i|
     members = []
     if i == 0
       @owner = Member.create!(member)
+      @owner.image.attach(io: File.open(Rails.root.join("db/fixtures/img#{rand(0..4)}.jpg")), filename: "img.jpg")
+      print "."
     else
       member = Member.new(member)
       member.invited_by_id = @owner.id
-      member.save
-      mambers << member
+      member.image.attach(io: File.open(Rails.root.join("db/fixtures/img#{rand(0..4)}.jpg")), filename: "img.jpg")
+      member.save!
+      print "."
+      members << member
     end
+  end
+  puts "end"
+end
+
+puts "Family end"
+
+puts "--> Event start"
+
+create_members = []
+
+create_members << Member.find_by(email: "yamada@test.com")
+create_members <<  Member.find_by(email: "yamada_a@test.com")
+
+events = [
+  {
+    title: "event1",
+    body: "eventeventevent",
+    images: [
+      "img0.jpg",
+      "img1.jpg"
+    ]
+  },
+  {
+    title: "event2",
+    body: "eventeventevent",
+    images: [
+      "img4.jpg"
+    ]
+  },
+  {
+    title: "event3",
+    body: "eventeventevent",
+    images: [
+      "img4.jpg"
+    ]
+  },
+  {
+    title: "event4",
+    body: "eventeventevent",
+    images: [
+
+    ]
+  },
+  {
+    title: "event4",
+    body: "eventeventevent",
+    images: [
+
+    ]
+  },
+]
+
+print "##-->> Event start"
+
+events.each.with_index(1) do |data, i|
+  event = create_members.sample.events.new(title: data[:title], body: data[:body])
+  event.start_time = Time.zone.now.since((i * rand(1..3)).day)
+  event.save!
+  if data[:images].any?
+    data[:images].each do |image|
+      event.images.attach(io: File.open(Rails.root.join("db/fixtures/#{image}")), filename: "#{image}")
+    end
+  end
+
+  print "."
+end
+
+puts "Event end"
+
+
+puts "--> EvantMember start"
+
+events = Event.where(id: (1..3).to_a)
+
+print "##--> EventMember start"
+
+events.each do |event|
+  families = event.member.families
+  families.sample(rand(1..families.size)).each do |member|
+    event.event_members.create!(
+      member_id: member.id,
+      is_done: [true, false].sample,
+      is_nice: [true, false].sample
+    )
+    print "."
   end
 end
 
-
+puts "EventMember end"
