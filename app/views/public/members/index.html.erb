@@ -1,16 +1,13 @@
 <h2 class="mt-4 d-flex justify-content-center">＜家族メンバー一覧＞</h2>
 
 <div class="row">
-  <div class="col-md-9">
+  <div class="col-md-10">
     <table class="table table-hover table-inverse">
       <thead>
         <tr>
-          <th>名前</th>
-          <th>なまえ</th>
           <th>写真</th>
-          <th>生年月日</th>
+          <th>名前</th>
           <th>ニックネーム</th>
-          <th>血液型</th>
           <th>担当カラー</th>
           <th></th>
         </tr>
@@ -19,21 +16,18 @@
       <tbody>
         <% @members.each do |member| %>
         <tr>
-          <td><%= member.name %></td>
-          <td><%= member.name_hiragana %></td>
           <td><%= image_tag member.get_image(100, 100) %></td>
-          <td><%= member.birthday %></td>
+          <td><%= member.name %></td>
           <td><%= member.nickname %></td>
-          <td><%= member.blood_type %></td>
-          <td><div class="btn btn-secondary" style="background-color:<%= member.letter_color %>;"></div></td>
+          <td><div class="btn btn-lg btn-outline-secondary" style="background-color:<%= member.letter_color %>;"></div></td>
 
           <td>
-            <%= link_to "詳細", member_path(member), class: "btn btn-secondary" %>
+            <%= link_to "詳細", member_path(member), class: "btn btn-sm btn-outline-secondary" %>
             <% if current_member.main_user? || current_member == member %> |
-              <%= link_to "編集", edit_member_path(member.id), class: "btn btn-warning" %>
+              <%= link_to "編集", edit_member_path(member.id), class: "btn btn-sm btn-outline-warning" %>
             <% end %>
             <% if current_member.main_user? %> |
-              <%= link_to "削除", member_path(member.id), method: :delete, class: "btn btn-sm btn-danger", "data-confirm" => "本当に削除しますか？" %>
+              <%= link_to "削除", member_path(member.id), method: :delete, class: "btn btn-sm btn-outline-danger", "data-confirm" => "本当に削除しますか？" %>
             <% end %>
           </td>
         </tr>
@@ -42,13 +36,13 @@
     </table>
   </div>
 
-  <div class="col-md-3">
+  <div class="col-md-2">
     <%= image_tag current_member.get_image(250, 250) %></br>
-    <%= link_to"メンバー情報編集へ", edit_member_path(current_member.id), class: "btn btn-warning" %>
+    <%= link_to"メンバー情報編集へ", edit_member_path(current_member.id), class: "btn btn-sm btn-warning btn-block" %>
   </div>
 
 </div>
 
 
-<%= link_to "招待メールを送る", new_member_invitation_path, class: "btn btn-secondary" if current_member.main_user? %>
-<%= link_to "カレンダーへ", events_path, class: "btn btn-secondary" %>
+<%= link_to "招待メールを送る", new_member_invitation_path, class: "btn btn-lg btn-secondary" if current_member.main_user? %>
+<%= link_to "カレンダーへ", events_path, class: "btn btn-lg btn-secondary" %>

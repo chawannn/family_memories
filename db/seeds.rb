@@ -18,7 +18,7 @@ families = [
       birthday: "1960/10/10",
       nickname: "ヤンマー",
       blood_type: :B,
-      letter_color: "#01e3f4",
+      letter_color: "#20b2aa",
     },
     {
       email: "yamada_a@test.com",
@@ -28,7 +28,7 @@ families = [
       birthday: "1961/12/12",
       nickname: "えっちゃん",
       blood_type: :AB,
-      letter_color: "#f0f8ff",
+      letter_color: "#fa8072",
     },
     {
       email: "yamada_b@test.com",
@@ -214,39 +214,147 @@ create_members <<  Member.find_by(email: "yamada_a@test.com")
 
 events = [
   {
-    title: "event1",
-    body: "eventeventevent",
+    title: "遊園地",
+    body: "瑠衣と一緒に行く久しぶりの遊園地",
     images: [
-      "img0.jpg",
-      "img1.jpg"
+      "asia.jpg",
+      "italy.jpg"
     ]
   },
   {
-    title: "event2",
-    body: "eventeventevent",
+    title: "中華街",
+    body: "食べ放題です！いっはい食べよう！",
     images: [
-      "img4.jpg"
+      "snow.jpg"
     ]
   },
   {
-    title: "event3",
-    body: "eventeventevent",
+    title: "焼肉",
+    body: "お肉が食べたくて仕方なかったーーー！",
     images: [
-      "img4.jpg"
+      "forest.jpg"
     ]
   },
   {
-    title: "event4",
-    body: "eventeventevent",
+    title: "買い出し",
+    body: "人参、玉ねぎ、ジャガイモ、白滝を買ってきてください",
     images: [
 
     ]
   },
   {
-    title: "event4",
-    body: "eventeventevent",
+    title: "買い出し",
+    body: "調理酒をお願いします",
     images: [
 
+    ]
+  },
+  {
+    title: "買い出し",
+    body: "チョコレートが食べたいです",
+    images: [
+
+    ]
+  },
+  {
+    title: "歯医者",
+    body: "１０時に予約しています",
+    images: [
+      "road.jpg"
+    ]
+  },
+  {
+    title: "病院",
+    body: "鼻水・せき・くしゃみ有り。学校帰りの１７時受診予約済。お迎えに行って、そのまま受診お願いします。熱は無いです。",
+    images: [
+
+    ]
+  },
+  {
+    title: "長野旅行",
+    body: "８泊９日の予定！",
+    images: [
+      "asia.jpg",
+      "japan2.jpg"
+    ]
+  },
+  {
+    title: "鎌倉へ",
+    body: "そうだ！！江ノ電乗ろう！！",
+    images: [
+      "lake.jpg",
+      "road.jpg"
+    ]
+  },
+  {
+    title: "北海道旅行",
+    body: "海鮮だー♡",
+    images: [
+      "airport.jpg",
+      "lake.jpg"
+    ]
+  },
+   {
+    title: "授業参観",
+    body: "９時からです。スリッパ持参。",
+    images: [
+
+    ]
+  },
+  {
+    title: "サッカー観戦",
+    body: "パブリックビューイング！みんなと気持ちを共有しよう！",
+    images: [
+
+    ]
+  },
+  {
+    title: "馬刺し",
+    body: "本場、熊本まで食べにいきましょう",
+    images: [
+
+    ]
+  },
+  {
+    title: "高千穂",
+    body: "再び神秘の地へ",
+    images: [
+      "sunset.jpg"
+    ]
+  },
+  {
+    title: "焼肉",
+    body: "また食べたい",
+    images: [
+      "forest.jpg"
+    ]
+  },
+   {
+    title: "お寿司",
+    body: "食べに行こう！",
+    images: [
+
+    ]
+  },
+  {
+    title: "わんこ蕎麦",
+    body: "本場・岩手まで食べにいきましょう！",
+    images: [
+
+    ]
+  },
+  {
+    title: "制服採寸",
+    body: "◯×学校に１３時集合予定。",
+    images: [
+
+    ]
+  },
+  {
+    title: "入学式",
+    body: "９時集合。三脚禁止。スリッパ、保護者用の資料を入れられるようなバックも持参。",
+    images: [
+      "japan.jpg"
     ]
   },
 ]
@@ -259,7 +367,7 @@ events.each.with_index(1) do |data, i|
   event.save!
   if data[:images].any?
     data[:images].each do |image|
-      event.images.attach(io: File.open(Rails.root.join("db/fixtures/#{image}")), filename: "#{image}")
+      event.images.attach(io: File.open(Rails.root.join("db/event_fixtures/#{image}")), filename: "#{image}")
     end
   end
 

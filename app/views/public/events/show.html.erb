@@ -33,15 +33,15 @@
           <tr>
             <th></th>
             <td>
-              <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-warning" %> |
-              <%= link_to "削除", event_path(@event.id), method: :delete, class: "btn btn-danger", "data-confirm" => "本当に削除しますか？" %>
+              <%= link_to "編集", edit_event_path(@event.id), class: "btn btn-outline-warning" %> |
+              <%= link_to "削除", event_path(@event.id), method: :delete, class: "btn btn-outline-danger", "data-confirm" => "本当に削除しますか？" %>
             </td>
           </tr>
         <% end %>
       </tbody>
     </table>
     <hr>
-    <div style="height:100px;"></div>
+    <div style="height:30px;"></div>
     <table class="table table-hover table-inverse">
       <tr>
         <th>頼まれた人</th>
@@ -55,16 +55,16 @@
                 <span>
                   実施
                   <% if event_member.is_done? %>
-                    <%= link_to_if (event_member.member == current_member), "済", is_done_event_member_path(event_member), method: :delete, class: "btn btn-secondary" %>
+                    <%= link_to_if (event_member.member == current_member), "済", is_done_event_member_path(event_member), method: :delete, class: "btn btn-sm btn-outline-secondary" %>
                   <% else %>
-                    <%= link_to_if (event_member.member == current_member), "中", is_done_event_member_path(event_member), method: :post, class: "btn btn-warning" %>
+                    <%= link_to_if (event_member.member == current_member), "中", is_done_event_member_path(event_member), method: :post, class: "btn btn-sm btn-outline-warning" %>
                   <% end %>
                 </span>
                 <span>
                   <% if event_member.is_nice? %>
-                    <%= link_to_if (@event.member == current_member), "ありがとう", is_nice_event_member_path(event_member), method: :delete, class: "btn btn-secondary" %>
+                    <%= link_to_if (@event.member == current_member), "ありがとう", is_nice_event_member_path(event_member), method: :delete, class: "btn btn-sm btn-secondary" %>
                   <% else %>
-                    <%= link_to_if (@event.member == current_member), "待ってます", is_nice_event_member_path(event_member), method: :post, class: "btn btn-warning" %>
+                    <%= link_to_if (@event.member == current_member), "待ってます", is_nice_event_member_path(event_member), method: :post, class: "btn btn-sm btn-warning" %>
                   <% end %>
                 </span>
               </div>
@@ -83,7 +83,7 @@
                 <% end %>
               </div>
               <div class="mb-2">
-                <%= f.submit "更新", class: "btn btn-primary" %>
+                <%= f.submit "更新", class: "btn btn-outline-primary" %>
               </div>
             <% end %>
           </td>
@@ -106,7 +106,7 @@
 
           <div class="d-flex justify-content-end align-items-center ">
             <span class="mr-2"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
-            <span><%= link_to "削除", comment_path(comment), method: :delete, class: "btn btn-sm btn-danger" if current_member == comment.member %></span>
+            <span><%= link_to "削除", comment_path(comment), method: :delete, class: "btn btn-sm btn-outline-danger" if current_member == comment.member %></span>
           </div>
         </div>
       <% end %>
@@ -134,7 +134,7 @@
   </div>
 </div>
 
-<%= link_to "カレンダーへ", events_path, class: "btn btn-secondary" %>
+<%= link_to "カレンダーへ", events_path, class: "btn btn-lg btn-secondary" %>
 
 <script type="text/javascript">
  $('#images').slick({
