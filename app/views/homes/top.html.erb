@@ -14,10 +14,10 @@
 
 <% if member_signed_in? %>
   <% if current_member.name.present? %>
-    <%= link_to 'カレンダー', events_path, class: "btn btn-secondary" %>
+    <%= link_to 'カレンダーへ', events_path, class: "btn btn-lg btn-secondary" %>
   <% else %>
     <h3>最初に情報を入力してください</h3>
-    <%= link_to "情報を入力", edit_member_path(current_member) %>
+    <%= link_to "ここに入力", edit_member_path(current_member) %>
   <% end %>
 <% else %>
   <%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post %>

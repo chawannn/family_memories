@@ -11,7 +11,7 @@
           <span><%= image_tag image.variant(gravity: :center, resize: "100x100^", crop: "100x100+0+0").processed, class: "my-2", style: "width:100%;" %></span>
         <% end %>
         <div class="d-flex justify-content-between">
-          <span><%= event.member.name %></span>
+          <span><%= event.member.nickname %></span>
           <span><%= l(event.created_at, format: :long) %></span>
         </div>
       </div>
@@ -19,4 +19,4 @@
   <% end %>
 </div>
 
-<%= link_to "戻る", :back, class: "btn btn-secondary" %>
+<%= link_to "戻る", :back, class: "btn btn-lg btn-secondary" %>
