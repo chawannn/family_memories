@@ -1,20 +1,20 @@
 class Public::MembersController < ApplicationController
+  before_action :authenticate_member!
+  before_action :set_member, only: [:show, :edit, :update, :destroy]
+  before_action :correct_member, only: [:edit, :update, :destroy]
 
   def index
     @members = current_member.families
   end
 
   def show
-    @member = Member.find(params[:id])
     @members = current_member.families
   end
 
   def edit
-    @member = Member.find(params[:id])
   end
 
   def update
-    @member = Member.find(params[:id])
     if @member.update(member_params)
       flash[:notice] = "更新しました"
       redirect_to member_path(@member)
@@ -26,6 +26,16 @@ class Public::MembersController < ApplicationController
 
 
   private
+  
+  def set_member
+    @member = Member.find(params[:id])
+  end
+  
+  def correct_member
+    if !(@member == current_member || (current_member.main_user? && @member.families.include?(current_member)))
+      redirect_to root_path
+    end
+  end
 
   def member_params
     params.require(:member).permit(:name,:name_hiragana,:image,:birthday,:nickname,:blood_type,:letter_color)

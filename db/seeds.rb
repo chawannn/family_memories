@@ -211,6 +211,7 @@ create_members = []
 
 create_members << Member.find_by(email: "yamada@test.com")
 create_members <<  Member.find_by(email: "yamada_a@test.com")
+create_members << Member.find_by(email: "popopo@test.com")
 
 events = [
   {

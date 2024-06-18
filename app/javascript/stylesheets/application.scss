@@ -111,5 +111,23 @@
   .navbar {
     color: #ffe4c4!important;
   }
+  .nav-link.text-light {
+    color: #ffe4c4!important;
+  }
 }
 //nav-bar end
+
+body {
+  background-color: #ffefd5;
+}
+
+main {
+  color: #933!important;
+}
+main table {
+  color: #933!important;
+}
+
+td>ul {
+  list-style: none;
+}
