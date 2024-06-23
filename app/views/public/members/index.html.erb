@@ -38,11 +38,11 @@
 
   <div class="col-md-2">
     <%= image_tag current_member.get_image(250, 250) %></br>
-    <%= link_to"メンバー情報編集へ", edit_member_path(current_member.id), class: "btn btn-sm btn-warning btn-block" %>
+    <%= link_to"メンバー情報編集へ", edit_member_path(current_member.id), class: "btn btn-sm btn-warning btn-block mt-1" %>
   </div>
 
 </div>
 
 
-<%= link_to "招待メールを送る", new_member_invitation_path, class: "btn btn-lg btn-secondary" if current_member.main_user? %>
-<%= link_to "カレンダーへ", events_path, class: "btn btn-lg btn-secondary" %>
+<%= link_to "招待メールを送る", new_member_invitation_path, class: "btn btn-lg btn-secondary mt-3" if current_member.main_user? %>
+<%= link_to "カレンダーへ", events_path, class: "btn btn-lg btn-secondary mt-3" %>

@@ -30,7 +30,7 @@ class Public::MembersController < ApplicationController
   def set_member
     @member = Member.find(params[:id])
   end
-  
+
   def correct_member
     if !(@member == current_member || (current_member.main_user? && @member.families.include?(current_member)))
       redirect_to root_path
