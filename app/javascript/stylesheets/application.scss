@@ -131,3 +131,20 @@ main table {
 td>ul {
   list-style: none;
 }
+
+.member-table tr {
+  height: 5em;
+}
+
+.member-table th, .member-table td {
+  vertical-align: middle!important;
+}
+
+footer {
+  .haikei {
+    color: #ffe4c4!important;
+  }
+}
+footer.bg-dark {
+  background-color: #e9967a!important;
+}
