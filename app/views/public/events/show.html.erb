@@ -95,18 +95,23 @@
     <div class="mb-4">
       <p>コメント件数：<%= @event.comments.count %></p>
       <% @event.comments.each do |comment| %>
-        <div class="d-flex justify-content-between">
-          <div class="d-flex justify-content-start align-items-center">
-            <span class="mr-2"><%= image_tag comment.member.get_image(50,50) %></span>
-            <span><%= comment.member.name %></span>
+        <div class="d-flex">
+          <div class="p-2">
+            <div class="mr-2"><%= image_tag comment.member.get_image(50,50) %></div>
+            <div><span class="font-small"><%= comment.member.name %></span></div>
           </div>
-          <div class="d-flex justify-content-start align-items-center">
-            <span><%= comment.body %></span>
-          </div>
+          <div class="pt-2 px-1 flex-grow-1">
+             <span class="mr-2 font-small"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
+              <div class="d-flex justify-content-start align-items-center">
+                <span><%= comment.body %></span>
+              </div>
 
-          <div class="d-flex justify-content-end align-items-center ">
-            <span class="mr-2"><%= comment.created_at.strftime('%Y/%m/%d') %></span>
-            <span><%= link_to "削除", comment_path(comment), method: :delete, class: "btn btn-sm btn-outline-danger" if current_member == comment.member %></span>
+              <div class="d-flex justify-content-end align-items-center ">
+                <% if comment.deletable_member?(current_member) %>
+                  <span><%= link_to '編集', edit_comment_path(comment), class: "btn btn-sm btn-outline-warning" %></span>
+                  <span><%= link_to "削除", comment_path(comment), method: :delete, class: "btn btn-sm btn-outline-danger" %></span>
+                <% end %>
+              </div>
           </div>
         </div>
       <% end %>

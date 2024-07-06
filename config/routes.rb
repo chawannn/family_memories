@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :comments, only: [:create]
     end
     get :gallerys, to: 'gallerys#index'
-    resources :comments, only: [:destroy]
+    resources :comments, only: [:edit, :update, :destroy]
     resources :event_members, only: [] do
       member do
         post :is_nice, to: 'event_members#is_nice_create'
