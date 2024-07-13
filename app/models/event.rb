@@ -10,6 +10,9 @@ class Event < ApplicationRecord
   has_many :assign_members, through: :event_members, source: :member
   has_many :comments, dependent: :destroy
 
+  has_many :notifications, as: :target
+  after_create :notificate
+
   validates :title, presence: true
 
   def get_image(width, height)
@@ -20,4 +23,12 @@ class Event < ApplicationRecord
     #image.variant(resize_to_limit: [width, height]).processed
   end
 
+  private
+
+  def notificate
+    current_member = self.member
+    families_ids = current_member.families.ids
+    families_ids.delete(current_member.id)
+    families_ids.each { |i| self.notifications.create(member_id: i) }
+  end
 end

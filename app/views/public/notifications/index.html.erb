@@ -1,0 +1,17 @@
+<ul>
+  <% if @notifications.any? %>
+    <% @notifications.each do |n| %>
+      <li>
+        <% if n.target_type == "Event" %>
+          <% event = Event.find(n.target_id) %>
+          <%= link_to "イベント#{event.title}が登録されました", event_path(event) %>
+        <% elsif n.target_type == "EventMember" %>
+          <% event = EventMember.find(n.target_id).event %>
+          <%= link_to "イベント#{event.title}のメンバに登録されました", event_path(event) %>
+        <% end %>
+      </li>
+    <% end %>
+  <% else %>
+    <li>通知はありません</li>
+  <% end %>
+</ul>

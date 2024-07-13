@@ -5,6 +5,7 @@ class Public::MembersController < ApplicationController
 
   def index
     @members = current_member.families
+    @members = @members.where('nickname LIKE(?)', "%#{params[:keyword]}%") if params[:keyword].present?
   end
 
   def show

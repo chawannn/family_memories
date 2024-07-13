@@ -32,6 +32,8 @@ class Public::EventsController < ApplicationController
 
   def show
     @comment = Comment.new
+    @event.notifications.where(member_id: current_member.id)&.update_all(is_read: true)
+    @event.event_members.includes(:notifications).find_by('notifications.member_id': current_member.id)&.notifications&.update_all(is_read: true)
   end
 
   def edit

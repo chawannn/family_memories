@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   devise_for :members
   root to: "homes#top"
 
@@ -18,6 +19,7 @@ Rails.application.routes.draw do
         delete :is_done, to: 'event_members#is_done_destroy'
       end
     end
+    resources :notifications, only: :index
   end
 
   devise_scope :member do

@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  member: one
+  target: one
+  is_read: false
+
+two:
+  member: two
+  target: two
+  is_read: false

@@ -54,6 +54,14 @@
                       <%= link_to destroy_member_session_path, method: :delete, class:"nav-link text-light" do %>
                         <h8>ログアウト</h8>
                       <% end %>
+                      
+                      <%= link_to notifications_path, class: "nav-link" do %>
+                        <% if Notification.where(member_id: current_member.id, is_read: false).any? %>
+                          <i class="fa-solid fa-bell" style="color:brown;"></i>
+                        <% else %>
+                          <i class="fa-regular fa-bell"></i>
+                        <% end %>
+                      <% end %>
 
                     <% else %>
 
