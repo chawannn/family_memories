@@ -20,5 +20,5 @@
     <%= link_to "ここに入力", edit_member_path(current_member) %>
   <% end %>
 <% else %>
-  <%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post, class: "btn btn-lg btn-secondary" %>
+  <%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post, class: "btn btn-secondary" %>
 <% end %>
