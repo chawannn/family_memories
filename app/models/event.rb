@@ -13,8 +13,6 @@ class Event < ApplicationRecord
   has_many :notifications, as: :target
   after_create :notificate
 
-  validates :title, presence: true
-
   def get_image(width, height)
     unless images.attached?
       file_path = Rails.root.join('app/assets/images/no_image.jpg')
