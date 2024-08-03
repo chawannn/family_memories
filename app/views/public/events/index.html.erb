@@ -1,8 +1,8 @@
 <h1 class="my-5 d-flex justify-content-center"><i class="fa-solid fa-house mr-1"></i>カレンダー</h1>
 
 <div class="d-flex">
-  <%= link_to "頼まれ中", events_path(status: :done), class: "btn btn-outline-primary mr-2" %>
-  <%= link_to "完了", events_path(status: :not_yet), class: "btn btn-outline-primary mr-2" %>
+  <%= link_to "完了", events_path(status: :done), class: "btn btn-outline-primary mr-2" %>
+  <%= link_to "頼まれ中", events_path(status: :not_yet), class: "btn btn-outline-primary mr-2" %>
   <%= link_to "全投稿", events_path, class: "btn btn-outline-primary mr-2" %>
 </div>
 
