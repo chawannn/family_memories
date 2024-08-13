@@ -17,7 +17,7 @@
     <%= link_to 'カレンダーへ', events_path, class: "btn btn-lg btn-secondary" %>
   <% else %>
     <h3>最初に情報を入力してください</h3>
-    <%= link_to "情報入力へ", edit_member_path(current_member), class: "btn btn-lg btn-warning" %>
+    <%= link_to "情報入力ページへ", edit_member_path(current_member), class: "btn btn-lg btn-warning" %>
   <% end %>
 <% else %>
   <%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post, class: "btn btn-secondary" %>
