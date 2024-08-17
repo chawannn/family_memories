@@ -20,5 +20,5 @@
     <%= link_to "情報入力ページへ", edit_member_path(current_member), class: "btn btn-lg btn-warning" %>
   <% end %>
 <% else %>
-  <%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post, class: "btn btn-secondary" %>
+  <%= link_to 'ゲストログイン（閲覧用）', members_guest_sign_in_path, method: :post, class: "btn btn-lg btn-secondary" %>
 <% end %>
