@@ -31,7 +31,7 @@
               <%= link_to "編集", edit_member_path(member.id), class: "btn btn-sm btn-outline-warning" %>
             <% end %>
             <% if current_member.main_user? %> |
-              <%= link_to "削除", member_path(member.id), method: :delete, class: "btn btn-sm btn-outline-danger", "data-confirm" => "削除してよろしいですか？" %>
+              <%= link_to "削除", member_path(member.id), method: :delete, class: "btn btn-sm btn-outline-danger", "data-confirm" => "削除しますか？" %>
             <% end %>
           </td>
         </tr>
